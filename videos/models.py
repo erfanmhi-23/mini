@@ -1,3 +1,13 @@
 from django.db import models
+from users.models import CustomUser
 
-# Create your models here.
+class Video(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    file_url = models.URLField()
+    upload_date = models.DateTimeField(auto_now_add=True)
+    duration = models.IntegerField(help_text="Duration in seconds")
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
