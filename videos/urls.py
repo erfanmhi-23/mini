@@ -5,4 +5,5 @@ urlpatterns = [
     path('', VideoListView.as_view(), name='video-list'),
     path('create/', VideoCreateView.as_view(), name='video-create'),
     path('<int:pk>/', VideoDetailView.as_view(), name='video-detail'),
+    path('videos/<int:pk>/', VideoDetailView.as_view(), name='video-detail'),
 ]

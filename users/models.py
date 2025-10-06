@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from datetime import timedelta
+from django.utils import timezone
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
@@ -10,14 +12,29 @@ class CustomUser(AbstractUser):
 class Subscription(models.Model):
     PLAN_CHOICES = [
         ('monthly', 'Monthly'),
+        ('quarterly', '3 Months'),
+        ('semiannual', '6 Months'),
         ('yearly', 'Yearly'),
     ]
 
+    PLAN_DURATIONS = {
+        'monthly': 30,
+        'quarterly': 90,
+        'semiannual': 180,
+        'yearly': 365,
+    }
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='subscriptions')
-    plan = models.CharField(max_length=10, choices=PLAN_CHOICES)
+    plan = models.CharField(max_length=12, choices=PLAN_CHOICES)
     start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField()
+    end_date = models.DateField(blank=True, null=True)
     active = models.BooleanField(default=True)
 
+    def save(self, *args, **kwargs):
+        if not self.end_date:
+            days = self.PLAN_DURATIONS.get(self.plan, 30)
+            self.end_date = (timezone.now() + timedelta(days=days)).date()
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.user.username} - {self.plan}"
+        return f"{self.user.username} - {self.plan} ({'Active' if self.active else 'Inactive'})"
