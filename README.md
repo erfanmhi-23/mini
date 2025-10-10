@@ -6,7 +6,7 @@ body requirements:username, email, password
 post method
 ---
 2.دریافت jwt:
-url:http://127.0.0.1:8000/api/users/token
+url:http://127.0.0.1:8000/api/users/token/
 body requirements:username, password
 post method
 ---
@@ -66,9 +66,10 @@ get method
 14.وب سوکت:
 daphne -p 8080 video_subscription.asgi:application
 url:ws://127.0.0.1:8080/ws/videos/(videoid)/
+---
 
 15.وضعیت اشتراک
-url:http://127.0.0.1:8000/api/subscription/status/
+url:http://127.0.0.1:8000/api/users/subscription/status/
 
 ---
 16.تمدید اشتراک

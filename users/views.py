@@ -27,14 +27,12 @@ class RenewSubscriptionView(APIView):
             return Response({"detail": "No subscription found for user."}, status=status.HTTP_404_NOT_FOUND)
 
         days = Subscription.PLAN_DURATIONS.get(subscription.plan, 30)
-        # اگر subscription فعال و تاریخ معتبر دارد، فقط پیام بده
         if subscription.active and subscription.end_date >= today:
             return Response({
                 "detail": "You already have an active subscription.",
                 "plan": subscription.plan,
                 "end_date": subscription.end_date
             })
-        # اگر subscription منقضی یا غیرفعال است، تمدید و فعال کن
         subscription.end_date = today + timedelta(days=days)
         subscription.active = True
         subscription.save()

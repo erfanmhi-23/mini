@@ -17,7 +17,7 @@ class PaymentCreateView(generics.CreateAPIView):
         }
         plan = getattr(subscription, 'plan', None)
         amount = PLAN_PRICES.get(plan, 100000)
-        serializer.save(user=self.request.user, amount=amount)
+        serializer.save(user=self.request.user, amount=amount, status=True)
 
 class PaymentListView(generics.ListAPIView):
     serializer_class = PaymentSerializer
