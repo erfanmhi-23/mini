@@ -62,4 +62,9 @@ post method
 url:http://127.0.0.1:8000/api/payments/my/
 body requirements:{}
 get method
+---
+14.وب سوکت:
+daphne -p 8080 video_subscription.asgi:application
+url:ws://127.0.0.1:8080/ws/videos/(videoid)/
+
 ```
