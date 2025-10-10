@@ -55,7 +55,7 @@ post method
 ---
 12.ثبت پرداخت :
 url:http://127.0.0.1:8000/api/payments/create/
-body requirements:user, subscription, amount, status
+body requirements:user, subscription
 post method
 ---
 13.لیست پرداخت:
@@ -66,5 +66,16 @@ get method
 14.وب سوکت:
 daphne -p 8080 video_subscription.asgi:application
 url:ws://127.0.0.1:8080/ws/videos/(videoid)/
+
+15.وضعیت اشتراک
+url:http://127.0.0.1:8000/api/subscription/status/
+
+---
+16.تمدید اشتراک
+http://127.0.0.1:8000/api/users/subscription/renew/
+---
+17.کنسل کردن اشتراک
+http://127.0.0.1:8000/api/users/subscription/cancel/
+
 
 ```
