@@ -21,6 +21,7 @@ python manage.py createsuperuser
 5.ایجاد ویدیو یا token ادمین:
 url:http://127.0.0.1:8000/api/videos/create/
 body requirements:title, description, file_url , duration, active
+"file_url": "https://example.com/video.mp4"
 post method
 ---
 6.دیدن لیست ویدیو:
@@ -55,7 +56,7 @@ post method
 ---
 12.ثبت پرداخت :
 url:http://127.0.0.1:8000/api/payments/create/
-body requirements:user, subscription
+body requirements:user, subscription= pk = 1,2,3,4
 post method
 ---
 13.لیست پرداخت:
